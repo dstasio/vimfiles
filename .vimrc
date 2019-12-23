@@ -47,6 +47,7 @@ nnoremap <silent> <A-j> :wincmd j<CR>
 nnoremap <silent> <A-h> :wincmd h<CR>
 nnoremap <silent> <A-l> :wincmd l<CR>
 
+" TODO: DOESN'T RECOGNIZE LINKER ERRORS!!
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
 " TODO: make this asyncronous
