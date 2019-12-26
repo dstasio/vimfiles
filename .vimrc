@@ -107,7 +107,7 @@ set softtabstop=4
 set smarttab
 set autoindent
 set cindent
-set cinoptions=l1,g0,N-s,E-s,t0,(0,w1,Ws,m1
+set cinoptions=l1,g0,N-s,E-s,t0,(0,w1,Ws,m1,=0
 " TODO: Maybe add color to statusline
 set statusline=\ %f%m\%=\ %y\ %{&fileencoding?&fileencoding:&encoding}\[%{&fileformat}\]\ %p%%\ %l:%c\ 
 
