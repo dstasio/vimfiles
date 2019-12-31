@@ -9,6 +9,8 @@ set textwidth=70
 set wildmode=list:full
 set wildmenu
 
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
 " Highlighting 70th column
 if (exists('+colorcolumn'))
     set colorcolumn=70
@@ -170,3 +172,10 @@ command! -nargs=+ For  call InsertFor(1, <f-args>)
 
 nnoremap ,f :For 
 nnoremap ,uf :Foru 
+
+
+
+
+
+
+so $HOME/vimfiles/syntax/hlsl.vim
