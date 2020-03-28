@@ -10,6 +10,7 @@ set wildmode=list:full
 set wildmenu
 
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+nnoremap <silent> <A-Space> :set hlsearch<Bar>:echo<CR>
 
 " Highlighting 70th column
 if (exists('+colorcolumn'))
@@ -149,9 +150,9 @@ au BufNewFile *.cpp call SourceSkeleton()
 function! InsertFor(Signed, IndexName, IndexEnd, ...)
     " TODO: Maybe add '[u]int' vs '[u]int32' check
     if a:Signed
-        let l:Type = 'int32'
+        let l:Type = 'i32'
     else
-        let l:Type = 'uint32'
+        let l:Type = 'u32'
     endif
     if a:0 > 0
         let l:IndexStart = a:1
