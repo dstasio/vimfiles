@@ -9,8 +9,7 @@ set textwidth=70
 set wildmode=list:full
 set wildmenu
 
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-nnoremap <silent> <A-Space> :set hlsearch<Bar>:echo<CR>
+nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
 " Highlighting 70th column
 if (exists('+colorcolumn'))
@@ -41,14 +40,17 @@ function! SplitOnce()
 endfun
 
 " Split window on open (splits twice in gvim)
-au GUIEnter * simalt ~x
 au GUIEnter * call SplitOnce()
 au VimResized * winc =
+au GUIEnter * simalt ~x
 
+nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
 nnoremap <silent> <A-j> :wincmd j<CR>
 nnoremap <silent> <A-h> :wincmd h<CR>
 nnoremap <silent> <A-l> :wincmd l<CR>
+let g:FocusToggle = 0
+nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:FocusToggle=1 \| else \|winc =  \| let g:FocusToggle=0 \| endif<Bar>:echo<CR>
 
 " TODO: DOESN'T RECOGNIZE LINKER ERRORS!!
 " TODO: syntax highlighting for compile log
