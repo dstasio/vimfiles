@@ -43,6 +43,7 @@ endfun
 au GUIEnter * call SplitOnce()
 au VimResized * winc =
 au GUIEnter * simalt ~x
+au BufNewFile,BufRead *.hlsl set syntax=hlsl
 
 nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -126,8 +127,8 @@ function! HeaderSkeleton(Filename)
     call setline(3, '   $File: $')
     call setline(4, '   $Date: $')
     call setline(5, '   $Revision: $')
-    call setline(6, '   $Creator: Casey Muratori $')
-    call setline(7, '   $Notice: (C) Copyright 2014 by Molly Rocket, Inc. All Rights Reserved. $')
+    call setline(6, '   $Creator: Davide Stasio $')
+    call setline(7, '   $Notice: (C) Copyright 2020 by Davide Stasio. All Rights Reserved. $')
     call setline(8, '   ======================================================================== */')
     call setline(9, '')
     call setline(10, '#define ' . l:HeaderMacro)
@@ -140,7 +141,7 @@ function! SourceSkeleton()
     call setline(3, '   $Date: $')
     call setline(4, '   $Revision: $')
     call setline(5, '   $Creator: Casey Muratori $')
-    call setline(6, '   $Notice: (C) Copyright 2014 by Molly Rocket, Inc. All Rights Reserved. $')
+    call setline(6, '   $Notice: (C) Copyright 2020 by Davide Stasio. All Rights Reserved. $')
     call setline(7, '   ======================================================================== */')
 endfun
 
