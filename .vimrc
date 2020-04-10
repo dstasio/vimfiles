@@ -39,10 +39,6 @@ function! SplitOnce()
     endif
 endfun
 
-" Split window on open (splits twice in gvim)
-au GUIEnter * call SplitOnce()
-au VimResized * winc =
-au GUIEnter * simalt ~x
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
 
 nnoremap <silent> <A-w> :set wrap!<CR>
