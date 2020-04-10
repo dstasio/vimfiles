@@ -61,7 +61,7 @@ function! Build()
     cgetexpr Log
     wincmd h
     " TODO: set wrapping for quickfix buffer only
-    bel cw
+    cope
     echon "\r\rCompilation Finished!"
 endfunction
 
