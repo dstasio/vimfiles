@@ -5,7 +5,7 @@ syntax on
 colorscheme base16-gruvbox-dark-pale
 set number
 set wrap!
-set textwidth=70
+set textwidth=0
 set wildmode=list:full
 set wildmenu
 
