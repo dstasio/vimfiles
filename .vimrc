@@ -8,6 +8,7 @@ set wrap!
 set textwidth=0
 set wildmode=list:full
 set wildmenu
+set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
@@ -120,34 +121,21 @@ set statusline=\ %f%m\%=\ %y\ %{&fileencoding?&fileencoding:&encoding}\[%{&filef
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
-function! HeaderSkeleton(Filename)
-    let l:HeaderMacro = toupper( substitute( substitute(a:Filename, '\.h', '_H',""), '\.', '_', ""))
+function! HeaderSkeleton(filename)
+    let l:HeaderMacro = toupper( substitute( substitute(a:filename, '\.h', '_H',""), '\.', '_', ""))
     call setline(1, '#if !defined(' . l:HeaderMacro . ')')
-    call setline(2, '/* ========================================================================')
-    call setline(3, '   $File: $')
-    call setline(4, '   $Date: $')
-    call setline(5, '   $Revision: $')
-    call setline(6, '   $Creator: Davide Stasio $')
-    call setline(7, '   $Notice: (C) Copyright 2020 by Davide Stasio. All Rights Reserved. $')
-    call setline(8, '   ======================================================================== */')
-    call setline(9, '')
-    call setline(10, '#define ' . l:HeaderMacro)
-    call setline(11, '#endif')
+    call setline(2, '')
+    call setline(3, '#define ' . l:HeaderMacro)
+    call setline(4, '#endif')
 endfun
 
-function! SourceSkeleton()
-    call setline(1, '/* ========================================================================')
-    call setline(2, '   $File: $')
-    call setline(3, '   $Date: $')
-    call setline(4, '   $Revision: $')
-    call setline(5, '   $Creator: Casey Muratori $')
-    call setline(6, '   $Notice: (C) Copyright 2020 by Davide Stasio. All Rights Reserved. $')
-    call setline(7, '   ======================================================================== */')
+function! SourceSkeleton(filename)
+    call setline(1, '// ' . a:filename)
 endfun
 
 au BufNewFile *.h   call HeaderSkeleton(expand('%:t'))
-au BufNewFile *.c   call SourceSkeleton()
-au BufNewFile *.cpp call SourceSkeleton()
+au BufNewFile *.c   call SourceSkeleton(expand('%:t'))
+au BufNewFile *.cpp call SourceSkeleton(expand('%:t'))
 
 " Typing utilities
 function! InsertFor(Signed, IndexName, IndexEnd, ...)
