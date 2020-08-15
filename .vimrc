@@ -58,17 +58,24 @@ nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:Foc
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
 " TODO: make this asyncronous
+if !exists("*Build")
 function! Build()
-    call setqflist([])
-    wall
-    echo "Compiling..."
-    let Log = system('build')
-    cgetexpr Log
-    wincmd h
-    " TODO: set wrapping for quickfix buffer only
-    bel cw
-    echon "\r\rCompilation Finished!"
+    if match(expand("%"), "\.vimrc") > 0
+        so %
+        simalt ~x
+    else
+        call setqflist([])
+        wall
+        echo "Compiling..."
+        let Log = system('build')
+        cgetexpr Log
+        wincmd h
+        " TODO: set wrapping for quickfix buffer only
+        bel cw
+        echon "\r\rCompilation Finished!"
+    endif
 endfunction
+endif
 
 " Mapping Alt-m to run build.bat and Alt-n to go to next error
 nnoremap <silent> <A-N> :cp<CR>
@@ -100,11 +107,16 @@ endfun
 
 function! SourceToHeader(OtherWindow)
     if match(expand("%"), '\.cpp') > 0
-        let l:Flipname = substitute(expand("%"),'\.cpp\(.*\)','.h\1',"")
+        let l:flipname = substitute(expand("%"),'\.cpp\(.*\)','.h\1',"")
     elseif match(expand("%"), '\.h') > 0
-        let l:Flipname = substitute(expand("%"),'\.h\(.*\)','.cpp\1',"")
+        let l:flipname = substitute(expand("%"),'\.h\(.*\)','.cpp\1',"")
     endif
-    call OpenBufferOrFile(l:Flipname, a:OtherWindow)
+
+    if exists("l:flipname")
+        call OpenBufferOrFile(l:flipname, a:OtherWindow)
+    else
+        echo "Unrecognized Source!"
+    endif
 endfun
 
 " Autoindent options
@@ -165,7 +177,17 @@ command! -nargs=+ For  call InsertFor(1, <f-args>)
 nnoremap ,f :For 
 nnoremap ,uf :Foru 
 
-
+autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
+autocmd FileType sh,ruby,python   let b:comment_leader = '#'
+autocmd FileType conf,fstab       let b:comment_leader = '#'
+autocmd FileType tex              let b:comment_leader = '%'
+autocmd FileType mail             let b:comment_leader = '>'
+autocmd FileType vim              let b:comment_leader = '"'
+function! CommentToggle()  " https://stackoverflow.com/a/22246318
+    execute ':silent! s/\([ ]\)/' . escape(b:comment_leader,'\/') . '\1/'
+    execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . '\?/\1/'
+endfunction
+map <F8> :call CommentToggle()<CR>
 
 
 
