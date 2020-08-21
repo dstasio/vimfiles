@@ -6,6 +6,7 @@ colorscheme base16-gruvbox-dark-pale
 set number
 set wrap!
 set textwidth=0
+set relativenumber
 set wildmode=list:full
 set wildmenu
 set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m
@@ -69,7 +70,7 @@ function! Build()
         echo "Compiling..."
         let Log = system('build')
         cgetexpr Log
-        wincmd h
+        " wincmd h
         " TODO: set wrapping for quickfix buffer only
         bel cw
         echon "\r\rCompilation Finished!"
