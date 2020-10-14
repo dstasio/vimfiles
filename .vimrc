@@ -1,4 +1,5 @@
 " TODO: syntax highlighting for NOTEs, TODOs and IMPORTANTs
+" TODO: syntax highlighting for WARNING in quickfix
 " TODO: reorder .vimrc
 " TODO: maybe implement file backup
 " TODO: look at conceal characters
