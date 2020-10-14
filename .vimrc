@@ -1,6 +1,7 @@
 " TODO: syntax highlighting for NOTEs, TODOs and IMPORTANTs
 " TODO: reorder .vimrc
 " TODO: maybe implement file backup
+" TODO: look at conceal characters
 syntax on
 colorscheme base16-gruvbox-dark-pale
 set number
@@ -10,14 +11,15 @@ set relativenumber
 set wildmode=list:full
 set wildmenu
 set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m
+set incsearch
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
 " Highlighting 70th column
-if (exists('+colorcolumn'))
-    set colorcolumn=70
-    highlight ColorColumn ctermbg=9
-endif
+"if (exists('+colorcolumn'))
+"    set colorcolumn=70
+"    highlight ColorColumn ctermbg=9
+"endif
 
 " Setting fonts for gvim (others will be added)
 if has("gui_running")
@@ -62,11 +64,16 @@ nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:Foc
 if !exists("*Build")
 function! Build()
     if match(expand("%"), "\.vimrc") > 0
+        silent wall
         so %
         simalt ~x
+    elseif (expand("%:p:h:t") ==? "colors") && (expand("%:e") ==? "vim")
+        silent wall
+        let schemename = expand("%:t:r")
+        exe ":colo " . schemename
     else
         call setqflist([])
-        wall
+        silent wall
         echo "Compiling..."
         let Log = system('build')
         cgetexpr Log
