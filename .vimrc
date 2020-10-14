@@ -4,8 +4,9 @@
 syntax on
 colorscheme base16-gruvbox-dark-pale
 set number
+set relativenumber
 set wrap!
-set textwidth=70
+set textwidth=0
 set wildmode=list:full
 set wildmenu
 
@@ -76,6 +77,21 @@ nnoremap <silent> <A-m> :call Build()<CR>
 nnoremap <silent> <A-c> :call SourceToHeader(0)<CR>
 nnoremap <silent> <A-C> :call SourceToHeader(1)<CR>
 
+function! OpenScratchBuffer()
+    let s:Scratchname = bufname("scratch")
+    if (strlen(s:Scratchname)) > 0
+        w
+        exe ":buffer " . s:Scratchname
+    else
+        enew
+        " exe \":enew" 
+        file "scratch"
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        setlocal noswapfile
+    endif
+endfun
+
 function! s:SwitchWindow()
     let OldWindow = winnr()
     wincmd l
@@ -140,7 +156,7 @@ function! SourceSkeleton()
     call setline(2, '   $File: $')
     call setline(3, '   $Date: $')
     call setline(4, '   $Revision: $')
-    call setline(5, '   $Creator: Casey Muratori $')
+    call setline(5, '   $Creator: Davide Stasio $')
     call setline(6, '   $Notice: (C) Copyright 2020 by Davide Stasio. All Rights Reserved. $')
     call setline(7, '   ======================================================================== */')
 endfun
@@ -171,11 +187,13 @@ function! InsertFor(Signed, IndexName, IndexEnd, ...)
     normal =3k
     normal j
 endfun 
-command! -nargs=+ Foru call InsertFor(0, <f-args>)
-command! -nargs=+ For  call InsertFor(1, <f-args>)
+command! -nargs=+ Foru     call InsertFor(0, <f-args>)
+command! -nargs=+ For      call InsertFor(1, <f-args>)
+"command! -nargs=0 Scratch  call OpenScratchBuffer()
 
 nnoremap ,f :For 
 nnoremap ,uf :Foru 
+nnoremap <silent> <A-s> :call OpenScratchBuffer()<CR>
 
 
 
