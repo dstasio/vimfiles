@@ -47,7 +47,7 @@ endfun
 
 " Split window on open (splits twice in gvim)
 au GUIEnter * call SplitOnce()
-"au VimResized * winc =
+au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
 
 nnoremap <silent> <A-w> :set wrap!<CR>
@@ -59,7 +59,7 @@ let g:FocusToggle = 0
 nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:FocusToggle=1 \| else \|winc =  \| let g:FocusToggle=0 \| endif<Bar>:echo<CR>
 
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
-nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
+nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
 
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
