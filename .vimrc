@@ -5,7 +5,7 @@
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
 syntax on
-colorscheme base16-gruvbox-dark-pale
+colorscheme simple-blue
 set number
 set wrap!
 set textwidth=0
