@@ -12,7 +12,8 @@ set textwidth=0
 set relativenumber
 set wildmode=list:full
 set wildmenu
-set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m
+set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
+set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
 set incsearch
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
