@@ -47,9 +47,6 @@ function! SplitOnce()
     endif
 endfun
 
-" Split window on open (splits twice in gvim)
-au GUIEnter * call SplitOnce()
-au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
 
 nnoremap <silent> <A-w> :set wrap!<CR>
@@ -85,7 +82,7 @@ function! Build()
         cgetexpr Log
         " wincmd h
         " TODO: set wrapping for quickfix buffer only
-        bel cw
+        cope
         echon "\r\rCompilation Finished!"
     endif
 endfunction
