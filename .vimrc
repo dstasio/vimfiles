@@ -1,3 +1,6 @@
+" IMPORTANT: on windows, check the global utf-8 setting in region settings for
+" correct utf-8 quickfix visualization
+"
 " TODO: syntax highlighting for NOTEs, TODOs and IMPORTANTs
 " TODO: syntax highlighting for WARNING in quickfix
 " TODO: reorder .vimrc
@@ -15,6 +18,7 @@ set wildmenu
 set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
 set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
 set incsearch
+set enc=utf-8
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
@@ -217,8 +221,5 @@ function! CommentToggle()  " https://stackoverflow.com/a/22246318
     execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . '\?/\1/'
 endfunction
 map <F8> :call CommentToggle()<CR>
-
-
-
 
 so $HOME/vimfiles/syntax/hlsl.vim
