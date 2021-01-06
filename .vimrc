@@ -217,7 +217,7 @@ autocmd FileType tex              let b:comment_leader = '%'
 autocmd FileType mail             let b:comment_leader = '>'
 autocmd FileType vim              let b:comment_leader = '"'
 function! CommentToggle()  " https://stackoverflow.com/a/22246318
-    execute ':silent! s/\([ ]\)/' . escape(b:comment_leader,'\/') . '\1/'
+    execute ':silent! s/\([^ ]\)/' . escape(b:comment_leader,'\/') . '\1/'
     execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . '\?/\1/'
 endfunction
 map <F8> :call CommentToggle()<CR>
