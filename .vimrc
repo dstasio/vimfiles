@@ -19,6 +19,15 @@ set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
 set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
 set incsearch
 set enc=utf-8
+set sidescrolloff=3
+set sidescroll=1
+"expandtab?
+
+nnoremap <C-J> <C-E>
+nnoremap <C-K> <C-Y>
+nnoremap <C-H> 7zh
+nnoremap <C-L> 7zl
+
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
@@ -35,7 +44,10 @@ if has("gui_running")
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
+    set guifont=DM_Mono:h11:cANSI:qDRAFT,Consolas:h11:cANSI
+    "set guifont=Natural_Mono_Alt:h11:cANSI:qDRAFT
+
+    set guioptions+=P "on windows, 'a' option could be used. It only makes a difference on linux
     set guioptions-=m
     set guioptions-=T
     set guioptions-=r
