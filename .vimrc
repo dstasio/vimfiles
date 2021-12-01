@@ -8,7 +8,7 @@
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
 syntax on
-colorscheme simple-blue
+colorscheme simple-gruvbox
 set number
 set wrap!
 set textwidth=0
@@ -44,7 +44,7 @@ if has("gui_running")
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
-    set guifont=DM_Mono:h11:cANSI:qDRAFT,Consolas:h11:cANSI
+    set guifont=DM_Mono:h12:cANSI:qDRAFT,Consolas:h11:cANSI
     "set guifont=Natural_Mono_Alt:h11:cANSI:qDRAFT
 
     set guioptions+=P "on windows, 'a' option could be used. It only makes a difference on linux
