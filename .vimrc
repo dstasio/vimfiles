@@ -67,6 +67,8 @@ endfun
 au GUIEnter * call SplitOnce()
 au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
+au BufNewFile,BufRead *.toml set syntax=rust
+au BufNewFile,BufRead *.rs   set syntax=rust
 
 nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -182,11 +184,13 @@ function! HeaderSkeleton(filename)
     call setline(1, '#if !defined(' . l:HeaderMacro . ')')
     call setline(2, '')
     call setline(3, '#define ' . l:HeaderMacro)
-    call setline(4, '#endif')
+    call setline(4, '#endif // ' . l:HeaderMacro)
 endfun
 
 function! SourceSkeleton(filename)
+    "let l:header_name = substitute(a:filename, '/\.c\(pp\)\?', '\.h',"")
     call setline(1, '// ' . a:filename)
+    "call setline(2, '#include "' . l:header_name . '"')
 endfun
 
 au BufNewFile *.h   call HeaderSkeleton(expand('%:t'))
@@ -197,7 +201,7 @@ au BufNewFile *.cpp call SourceSkeleton(expand('%:t'))
 function! InsertFor(Signed, IndexName, IndexEnd, ...)
     " TODO: Maybe add '[u]int' vs '[u]int32' check
     if a:Signed
-        let l:Type = 'i32'
+        let l:Type = 's32'
     else
         let l:Type = 'u32'
     endif
@@ -215,6 +219,7 @@ function! InsertFor(Signed, IndexName, IndexEnd, ...)
     normal =3k
     normal j
 endfun 
+
 command! -nargs=+ Foru call InsertFor(0, <f-args>)
 command! -nargs=+ For  call InsertFor(1, <f-args>)
 
@@ -234,4 +239,4 @@ function! CommentToggle()  " https://stackoverflow.com/a/22246318
 endfunction
 map <F8> :call CommentToggle()<CR>
 
-so $HOME/vimfiles/syntax/hlsl.vim
+au BufNewFile,BufRead *.rs source $HOME/vimfiles/indent/rust.vim
