@@ -67,8 +67,9 @@ endfun
 au GUIEnter * call SplitOnce()
 au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
-au BufNewFile,BufRead *.toml set syntax=rust
-au BufNewFile,BufRead *.rs   set syntax=rust
+au BufNewFile,BufRead *.toml set filetype=rust
+au BufNewFile,BufRead *.rs   set filetype=rust
+au BufNewFile,BufRead *.odin set filetype=odin
 
 nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -227,12 +228,12 @@ nnoremap ,f :For
 nnoremap ,uf :Foru 
 nnoremap <silent> <A-s> :call OpenScratchBuffer()<CR>
 
-autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
-autocmd FileType sh,ruby,python   let b:comment_leader = '#'
-autocmd FileType conf,fstab       let b:comment_leader = '#'
-autocmd FileType tex              let b:comment_leader = '%'
-autocmd FileType mail             let b:comment_leader = '>'
-autocmd FileType vim              let b:comment_leader = '"'
+autocmd FileType c,cpp,java,scala,rust let b:comment_leader = '//'
+autocmd FileType sh,ruby,python        let b:comment_leader = '#'
+autocmd FileType conf,fstab,toml       let b:comment_leader = '#'
+autocmd FileType tex                   let b:comment_leader = '%'
+autocmd FileType mail                  let b:comment_leader = '>'
+autocmd FileType vim                   let b:comment_leader = '"'
 function! CommentToggle()  " https://stackoverflow.com/a/22246318
     execute ':silent! s/\([^ ]\)/' . escape(b:comment_leader,'\/') . '\1/'
     execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . '\?/\1/'
