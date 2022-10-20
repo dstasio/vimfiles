@@ -23,12 +23,12 @@ set sidescrolloff=3
 set sidescroll=1
 "expandtab?
 
-nnoremap <C-J> <C-E>
-nnoremap <C-K> <C-Y>
+nnoremap <silent> <C-N> <C-D>
+nnoremap <silent> <C-M> <C-U>
+nnoremap <silent> <C-J> <C-E>
+nnoremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
-
-nnoremap <C-I> <C-D>
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
@@ -81,7 +81,8 @@ let g:FocusToggle = 0
 nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:FocusToggle=1 \| else \|winc =  \| let g:FocusToggle=0 \| endif<Bar>:echo<CR>
 
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
-nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
+nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
+
 
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
