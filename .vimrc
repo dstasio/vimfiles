@@ -243,3 +243,12 @@ endfunction
 map <F8> :call CommentToggle()<CR>
 
 au BufNewFile,BufRead *.rs source $HOME/vimfiles/indent/rust.vim
+
+
+
+" Plugins
+call plug#begin()
+
+Plug 'habamax/vim-godot'
+
+call plug#end()
