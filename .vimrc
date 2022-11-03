@@ -23,10 +23,10 @@ set sidescrolloff=3
 set sidescroll=1
 "expandtab?
 
-nnoremap <silent> <C-N> <C-D>
-nnoremap <silent> <C-M> <C-U>
-nnoremap <silent> <C-J> <C-E>
-nnoremap <silent> <C-K> <C-Y>
+noremap <silent> <C-N> <C-D>
+noremap <silent> <C-M> <C-U>
+noremap <silent> <C-J> <C-E>
+noremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
 
