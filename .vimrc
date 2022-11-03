@@ -118,6 +118,13 @@ nnoremap <silent> <A-m> :call Build()<CR>
 nnoremap <silent> <A-c> :call SourceToHeader(0)<CR>
 nnoremap <silent> <A-C> :call SourceToHeader(1)<CR>
 
+function! ToggleAndShowPasteMode()
+    set paste!
+    set paste?
+endfun
+
+nnoremap <A-p> :call ToggleAndShowPasteMode()<CR>
+
 function! OpenScratchBuffer()
     let s:Scratchname = bufname("scratch")
     if (strlen(s:Scratchname)) > 0
