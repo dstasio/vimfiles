@@ -251,7 +251,10 @@ map <F8> :call CommentToggle()<CR>
 
 au BufNewFile,BufRead *.rs source $HOME/vimfiles/indent/rust.vim
 
-
+function! GetSyntaxSroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 "
 " Plugins
