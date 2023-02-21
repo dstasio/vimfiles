@@ -29,6 +29,7 @@ noremap <silent> <C-J> <C-E>
 noremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
+nnoremap <A-b> :b#<CR>
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
