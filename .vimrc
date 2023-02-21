@@ -16,6 +16,7 @@ set relativenumber
 set wildmode=list:full
 set wildmenu
 set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
+set errorformat+=%o\ :\ %t%*\\D%n:\ %m               " msdev linker errors
 set errorformat+=%f(%l)\ :\ %t%*\\D%n:\ %m           " msdev 'the following warning is treated as an error' & warnings
 set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
 set incsearch
