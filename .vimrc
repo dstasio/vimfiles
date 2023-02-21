@@ -16,6 +16,7 @@ set relativenumber
 set wildmode=list:full
 set wildmenu
 set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
+set errorformat+=%f(%l)\ :\ %t%*\\D%n:\ %m           " msdev 'the following warning is treated as an error' & warnings
 set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
 set incsearch
 set enc=utf-8
@@ -251,3 +252,9 @@ endfunction
 map <F8> :call CommentToggle()<CR>
 
 au BufNewFile,BufRead *.rs source $HOME/vimfiles/indent/rust.vim
+
+function! GetSyntaxSroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+
