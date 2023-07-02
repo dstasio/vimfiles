@@ -7,8 +7,10 @@
 " TODO: maybe implement file backup
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
+"
+" NOTE: https://github.com/itchyny/lightline.vim
 syntax on
-colorscheme simple-gruvbox
+colorscheme sonokai
 set number
 set wrap!
 set textwidth=0
@@ -19,10 +21,12 @@ set errorformat+=%f(%l\\,%c):\ %t%*\\D%n:\ %m        " msdev linker errors
 set errorformat+=%o\ :\ %t%*\\D%n:\ %m               " msdev linker errors
 set errorformat+=%f(%l)\ :\ %t%*\\D%n:\ %m           " msdev 'the following warning is treated as an error' & warnings
 set errorformat+=%f(%l\\,%c-%*\\d):\ %t%*\\D%n:\ %m  " hlsl compiler errors
+set errorformat+=%f(%l:%c)\ %m                       " odin compiler errors
 set incsearch
 set enc=utf-8
 set sidescrolloff=3
 set sidescroll=1
+let mapleader=" "
 "expandtab?
 
 noremap <silent> <C-N> <C-D>
@@ -32,6 +36,8 @@ noremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
+vnoremap p "_dP
+nnoremap <silent> <C-T> :tabe<CR>
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
 
@@ -48,7 +54,7 @@ if has("gui_running")
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
-    set guifont=DM_Mono:h12:cANSI:qDRAFT,Consolas:h11:cANSI
+    set guifont=DM_Mono:h14:cANSI:qDRAFT,Consolas:h11:cANSI
     "set guifont=Natural_Mono_Alt:h11:cANSI:qDRAFT
 
     set guioptions+=P "on windows, 'a' option could be used. It only makes a difference on linux
@@ -74,6 +80,12 @@ au BufNewFile,BufRead *.hlsl set syntax=hlsl
 au BufNewFile,BufRead *.toml set filetype=rust
 au BufNewFile,BufRead *.rs   set filetype=rust
 au BufNewFile,BufRead *.odin set filetype=odin
+au BufNewFile,BufRead *.odin source ~/vimfiles/indent/odin.vim
+au BufNewFile,BufRead *.jai  set filetype=jai
+au BufNewFile,BufRead *.jai  source ~/vimfiles/indent/jai.vim
+au BufNewFile,BufRead *.glsl set filetype=glsl
+au BufNewFile,BufRead *.vert set filetype=glsl
+au BufNewFile,BufRead *.frag set filetype=glsl
 
 nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -81,7 +93,7 @@ nnoremap <silent> <A-j> :wincmd j<CR>
 nnoremap <silent> <A-h> :wincmd h<CR>
 nnoremap <silent> <A-l> :wincmd l<CR>
 let g:FocusToggle = 0
-nnoremap <silent> <Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:FocusToggle=1 \| else \|winc =  \| let g:FocusToggle=0 \| endif<Bar>:echo<CR>
+nnoremap <silent> <Leader><Space> :if (g:FocusToggle == 0) \| :vertical res \| let g:FocusToggle=1 \| else \|winc =  \| let g:FocusToggle=0 \| endif<Bar>:echo<CR>
 
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
 nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
@@ -100,6 +112,8 @@ function! Build()
         silent wall
         let schemename = expand("%:t:r")
         exe ":colo " . schemename
+    elseif (expand("%:e") ==? "jai")
+        echo "No jai compilation yet..."
     else
         call setqflist([])
         silent wall
@@ -211,7 +225,7 @@ au BufNewFile *.c   call SourceSkeleton(expand('%:t'))
 au BufNewFile *.cpp call SourceSkeleton(expand('%:t'))
 
 " Typing utilities
-function! InsertFor(Signed, IndexName, IndexEnd, ...)
+function! InsertFor(Signed, IndexEnd, ...)
     " TODO: Maybe add '[u]int' vs '[u]int32' check
     if a:Signed
         let l:Type = 's32'
@@ -224,10 +238,11 @@ function! InsertFor(Signed, IndexName, IndexEnd, ...)
         let l:IndexStart = 0
     endif
     call append(line('.') - 1, [
-                \ 'for('. l:Type . ' ' . a:IndexName . ' = ' . l:IndexStart . ';',
-                \ '    ' . a:IndexName . ' < ' . a:IndexEnd . ';',
-                \ '    ++' . a:IndexName . ')',
-                \ '{'])
+                \ 'for('. l:Type . ' it_index = ' . l:IndexStart . ';' .
+                \ ' it_index < ' . a:IndexEnd . ';' .
+                \ ' it_index += 1)',
+                \ '{'
+                \])
     normal k
     normal =3k
     normal j
@@ -236,8 +251,8 @@ endfun
 command! -nargs=+ Foru call InsertFor(0, <f-args>)
 command! -nargs=+ For  call InsertFor(1, <f-args>)
 
-nnoremap ,f :For 
-nnoremap ,uf :Foru 
+nnoremap <Leader>f  :For 
+nnoremap <Leader>uf :Foru 
 nnoremap <silent> <A-s> :call OpenScratchBuffer()<CR>
 
 autocmd FileType c,cpp,java,scala,rust let b:comment_leader = '//'

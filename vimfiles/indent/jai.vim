@@ -6,15 +6,14 @@ let b:did_indent = 1
 setlocal nosmartindent
 setlocal nolisp
 setlocal autoindent
-setlocal noexpandtab
 
-setlocal indentexpr=GetOdinIndent(v:lnum)
+setlocal indentexpr=GetJaiIndent(v:lnum)
 
-if exists("*GetOdinIndent")
+if exists("*GetJaiIndent")
   finish
 endif
 
-function! GetOdinIndent(lnum)
+function! GetJaiIndent(lnum)
   let prev = prevnonblank(a:lnum-1)
 
   if prev == 0
