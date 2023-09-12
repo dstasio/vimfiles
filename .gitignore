@@ -3,3 +3,4 @@ _viminfo
 .netrwhist  
 
 vimfiles/plugged/
+.git-credentials
