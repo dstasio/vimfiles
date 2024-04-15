@@ -281,6 +281,7 @@ function! GetSyntaxSroup()
 endfun
 
 
+" From https://vim.fandom.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
 function! DefineSyntaxRegion(filetype,start,end,textSnipHl = 'SpecialComment') abort
   let ft=toupper(a:filetype)
   let group='textGroup'.ft
