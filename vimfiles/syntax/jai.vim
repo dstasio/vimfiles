@@ -162,3 +162,6 @@ highlight def link jaiAOS Keyword
 
 
 let b:current_syntax = "jai"
+
+call DefineSyntaxRegion('glsl','#string GLSL','GLSL')
+call DefineSyntaxRegion('hlsl','#string HLSL','HLSL')
