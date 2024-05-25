@@ -7,6 +7,8 @@
 " TODO: maybe implement file backup
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
+" TODO: ignorecase
+" TODO: maximize buffer shortcut
 "
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
@@ -29,10 +31,10 @@ set sidescroll=1
 let mapleader=" "
 "expandtab?
 
-noremap <silent> <C-N> <C-D>
-noremap <silent> <C-M> <C-U>
-noremap <silent> <C-J> <C-E>
-noremap <silent> <C-K> <C-Y>
+nnoremap <silent> <C-N> <C-D>
+nnoremap <silent> <C-M> <C-U>
+nnoremap <silent> <C-J> <C-E>
+nnoremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
@@ -98,13 +100,16 @@ nnoremap <silent> <Leader><Space> :if (g:FocusToggle == 0) \| :vertical res \| l
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
 nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
 
+fu! EndsWith(longer, shorter) abort
+    return a:longer[len(a:longer)-len(a:shorter):] ==# a:shorter
+endfunction
 
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
 " TODO: make this asyncronous
 if !exists("*Build")
 function! Build()
-    if match(expand("%"), "\.vimrc") > 0
+    if match(expand("%"), "\.vimrc") > 0 || EndsWith(expand("%"), ".vim")
         silent wall
         so %
         simalt ~x
