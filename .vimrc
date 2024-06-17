@@ -12,7 +12,10 @@
 "
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
-colorscheme sonokai
+if has("gui_running")
+    colorscheme sonokai
+endif
+
 set number
 set wrap!
 set textwidth=0
@@ -100,6 +103,15 @@ nnoremap <silent> <Leader><Space> :if (g:FocusToggle == 0) \| :vertical res \| l
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
 nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
 
+function! HighlightCurrentColumn()
+    let l:current_column = virtcol('.')
+    echo l:current_column
+    exe 'set colorcolumn+=' . l:current_column
+endfunction
+
+nnoremap <silent> <Leader>c :call HighlightCurrentColumn()<CR>
+nnoremap <silent> <Leader>C :set colorcolumn=<CR>
+
 fu! EndsWith(longer, shorter) abort
     return a:longer[len(a:longer)-len(a:shorter):] ==# a:shorter
 endfunction
@@ -107,6 +119,7 @@ endfunction
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
 " TODO: make this asyncronous
+" TODO: print compilation time on success
 if !exists("*Build")
 function! Build()
     if match(expand("%"), "\.vimrc") > 0 || EndsWith(expand("%"), ".vim")
@@ -313,3 +326,25 @@ function! DefineSyntaxRegion(filetype,start,end,textSnipHl = 'SpecialComment') a
   \ contains=@'.group
 endfunction
 
+
+" --------------------------------------------------------------------
+" Font resize commands - from https://vim.fandom.com/wiki/Change_font_size_quickly
+nnoremap <C-Up> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)+1)',
+ \ 'g')<CR>
+nnoremap <C-Down> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)-1)',
+ \ 'g')<CR>
+" End font resize commands
+" --------------------------------------------------------------------
+
+if has("gui_running")
+" Plugins
+call plug#begin('~/vimfiles/plugged')
+Plug 'ziglang/zig.vim'
+call plug#end()
+endif " gui_running
