@@ -8,10 +8,15 @@
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
 " TODO: look at vim compiler feature (:h compiler)
+" TODO: ignorecase
+" TODO: maximize buffer shortcut
 "
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
-colorscheme sonokai
+if has("gui_running")
+    colorscheme sonokai
+endif
+
 set number
 set wrap!
 set textwidth=0
@@ -30,10 +35,10 @@ set sidescroll=1
 let mapleader=" "
 "expandtab?
 
-noremap <silent> <C-N> <C-D>
-noremap <silent> <C-M> <C-U>
-noremap <silent> <C-J> <C-E>
-noremap <silent> <C-K> <C-Y>
+nnoremap <silent> <C-N> <C-D>
+nnoremap <silent> <C-M> <C-U>
+nnoremap <silent> <C-J> <C-E>
+nnoremap <silent> <C-K> <C-Y>
 nnoremap <C-H> 7zh
 nnoremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
@@ -99,13 +104,26 @@ nnoremap <silent> <Leader><Space> :if (g:FocusToggle == 0) \| :vertical res \| l
 " NOTE: I don't know why this works, but adding a "^M"(ctrl-v ctrl-m in insert mode) makes this work as a toggle.
 nnoremap <silent> <A-f> :simalt ~r<CR>:simalt ~x<CR>
 
+function! HighlightCurrentColumn()
+    let l:current_column = virtcol('.')
+    echo l:current_column
+    exe 'set colorcolumn+=' . l:current_column
+endfunction
+
+nnoremap <silent> <Leader>c :call HighlightCurrentColumn()<CR>
+nnoremap <silent> <Leader>C :set colorcolumn=<CR>
+
+fu! EndsWith(longer, shorter) abort
+    return a:longer[len(a:longer)-len(a:shorter):] ==# a:shorter
+endfunction
 
 " TODO: syntax highlighting for compile log
 " TODO: add searching for build script
 " TODO: make this asyncronous
+" TODO: print compilation time on success
 if !exists("*Build")
 function! Build()
-    if match(expand("%"), "\.vimrc") > 0
+    if match(expand("%"), "\.vimrc") > 0 || EndsWith(expand("%"), ".vim")
         silent wall
         so %
         simalt ~x
@@ -281,3 +299,53 @@ function! GetSyntaxSroup()
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
+
+" From https://vim.fandom.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
+function! DefineSyntaxRegion(filetype,start,end,textSnipHl = 'SpecialComment') abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ keepend
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
+
+
+" --------------------------------------------------------------------
+" Font resize commands - from https://vim.fandom.com/wiki/Change_font_size_quickly
+nnoremap <C-Up> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)+1)',
+ \ 'g')<CR>
+nnoremap <C-Down> :silent! let &guifont = substitute(
+ \ &guifont,
+ \ ':h\zs\d\+',
+ \ '\=eval(submatch(0)-1)',
+ \ 'g')<CR>
+" End font resize commands
+" --------------------------------------------------------------------
+
+if has("gui_running")
+" Plugins
+call plug#begin('~/vimfiles/plugged')
+Plug 'ziglang/zig.vim'
+call plug#end()
+endif " gui_running
