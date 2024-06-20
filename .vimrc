@@ -7,6 +7,7 @@
 " TODO: maybe implement file backup
 " TODO: look at conceal characters
 " TODO: ctrl-x to switch to last unrelated file (different than what you'd get with ctrl-c)
+" TODO: look at vim compiler feature (:h compiler)
 "
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
@@ -81,7 +82,7 @@ au BufNewFile,BufRead *.toml set filetype=rust
 au BufNewFile,BufRead *.rs   set filetype=rust
 au BufNewFile,BufRead *.odin set filetype=odin
 au BufNewFile,BufRead *.odin source ~/vimfiles/indent/odin.vim
-au BufNewFile,BufRead *.jai  set filetype=jai
+" au BufNewFile,BufRead *.jai  set filetype=jai
 au BufNewFile,BufRead *.jai  source ~/vimfiles/indent/jai.vim
 au BufNewFile,BufRead *.glsl set filetype=glsl
 au BufNewFile,BufRead *.vert set filetype=glsl
