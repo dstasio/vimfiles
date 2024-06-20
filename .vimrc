@@ -342,10 +342,3 @@ nnoremap <C-Down> :silent! let &guifont = substitute(
  \ 'g')<CR>
 " End font resize commands
 " --------------------------------------------------------------------
-
-if has("gui_running")
-" Plugins
-call plug#begin('~/vimfiles/plugged')
-Plug 'ziglang/zig.vim'
-call plug#end()
-endif " gui_running
