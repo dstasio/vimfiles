@@ -20,6 +20,7 @@ setlocal commentstring=//\ %s
 
 syntax keyword jaiUsing using
 syntax keyword jaiCast cast
+syntax keyword jaiBuiltinFunctions reset_temporary_storage assert
 
 syntax keyword jaiStruct struct
 syntax keyword jaiUnion union
@@ -50,6 +51,7 @@ syntax keyword jaiSOA SOA
 syntax keyword jaiAOS AOS
 
 syntax keyword jaiIt it it_index
+syntax keyword jaiTemp temp temporary_allocator
 
 syntax keyword jaiTypeInfo size_of type_of type_info
 syntax keyword jaiInterface interface
@@ -95,6 +97,7 @@ syntax region jaiBlockComment start=/\v\/\*/ end=/\v\*\// contains=jaiBlockComme
 syntax sync minlines=200
 
 
+highlight def link jaiTemp Identifier
 highlight def link jaiIt Identifier
 highlight def link jaiUsing Keyword
 highlight def link jaiNew Keyword
@@ -121,6 +124,7 @@ highlight def link jaiUnion Structure
 highlight def link jaiEnum Structure
 
 highlight def link jaiFunction Function
+highlight def link jaiBuiltinFunctions Function
 highlight def link jaiVariableDeclaration Identifier
 highlight def link jaiForVariableDeclaration Identifier
 highlight def link jaiConstantDeclaration Constant
@@ -165,3 +169,4 @@ let b:current_syntax = "jai"
 
 call DefineSyntaxRegion('glsl','#string GLSL','GLSL')
 call DefineSyntaxRegion('hlsl','#string HLSL','HLSL')
+call DefineSyntaxRegion('html','#string HTML','HTML')
