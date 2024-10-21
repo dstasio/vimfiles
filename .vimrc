@@ -86,6 +86,7 @@ au BufNewFile,BufRead *.hlsl set syntax=hlsl
 au BufNewFile,BufRead *.toml set filetype=rust
 au BufNewFile,BufRead *.rs   set filetype=rust
 au BufNewFile,BufRead *.odin set filetype=odin
+au BufNewFile,BufRead *.csv  set filetype=csv
 au BufNewFile,BufRead *.odin source ~/vimfiles/indent/odin.vim
 " au BufNewFile,BufRead *.jai  set filetype=jai
 au BufNewFile,BufRead *.jai  source ~/vimfiles/indent/jai.vim
