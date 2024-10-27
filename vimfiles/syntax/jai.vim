@@ -21,6 +21,7 @@ setlocal commentstring=//\ %s
 syntax keyword jaiUsing using
 syntax keyword jaiCast cast
 syntax keyword jaiBuiltinFunctions reset_temporary_storage assert
+syntax keyword jaiAllocatingFunctions alloc NewArray New copy_string array_copy
 
 syntax keyword jaiStruct struct
 syntax keyword jaiUnion union
@@ -125,6 +126,7 @@ highlight def link jaiEnum Structure
 
 highlight def link jaiFunction Function
 highlight def link jaiBuiltinFunctions Function
+highlight def link jaiAllocatingFunctions ErrorText
 highlight def link jaiVariableDeclaration Identifier
 highlight def link jaiForVariableDeclaration Identifier
 highlight def link jaiConstantDeclaration Constant

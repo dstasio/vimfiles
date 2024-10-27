@@ -53,7 +53,7 @@ function! GetJaiIndent(lnum)
     if prevprev != 0
         let prevprevline = getline(prevprev)
     endif
-    echo prevprevline
+    " echo prevprevline
 
     let prevline = getline(prev)
     let line = getline(a:lnum)
