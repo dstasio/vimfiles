@@ -35,12 +35,12 @@ set sidescroll=1
 let mapleader=" "
 "expandtab?
 
-nnoremap <silent> <C-N> <C-D>
-nnoremap <silent> <C-M> <C-U>
-nnoremap <silent> <C-J> <C-E>
-nnoremap <silent> <C-K> <C-Y>
-nnoremap <C-H> 7zh
-nnoremap <C-L> 7zl
+noremap <silent> <C-N> <C-D>
+noremap <silent> <C-M> <C-U>
+noremap <silent> <C-J> <C-E>
+noremap <silent> <C-K> <C-Y>
+noremap <C-H> 7zh
+noremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
 vnoremap p "_dP
 nnoremap <silent> <C-T> :tabe<CR>
