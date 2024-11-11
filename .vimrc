@@ -315,3 +315,9 @@ nnoremap <C-Down> :silent! let &guifont = substitute(
  \ 'g')<CR>
 " End font resize commands
 " --------------------------------------------------------------------
+
+"
+" Inline Color Previews
+" @todo: These should not be active in all file types
+au TextChanged,TextChangedP * call dst#rescan_last_edited_lines()
+au TextChangedI * call dst#rescan_current_line()
