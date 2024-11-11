@@ -5,18 +5,39 @@ def s:AddColorBullet(row: number, column: number, hex_color_string: string)
         hlset([{ name: col_tag, guifg: hex_color_string}])
         prop_type_add(col_tag, {highlight: col_tag})
     endif
-    prop_add(row, column, { text: " ■ ",
+    prop_add(row, column, { text: "■ ",
                             type: col_tag })
 enddef
 
 " Adapted from u/wasser-frosch at https://www.reddit.com/r/vim/comments/wm08fl/simple_vim_9_virtual_text_example_for_hex_colors
-def InlineColors()
-    for row in range(1, line('$'))
+def s:PreviewColors(startline = -1, endline = -1, reset_previous_previews = v:true)
+    var first_line = 1
+    if startline != -1
+        first_line = startline
+    endif
+
+    var last_line = line('$')
+    if endline != -1
+        last_line = endline
+    endif
+
+    for row in range(first_line, last_line)
         var current = getline(row)
         var cnt = 1
-        prop_clear(row)
+
+        var line_has_been_reset = v:false
+	if reset_previous_previews
+            prop_clear(row)
+            line_has_been_reset = v:true
+	endif
+
         var [hex, starts, ends] = matchstrpos(current, '#\x\{6\}', 0, cnt)
         while starts != -1
+	    if line_has_been_reset == v:false
+                prop_clear(row)
+                line_has_been_reset = v:true
+	    endif
+
             s:AddColorBullet(row, starts + 1, hex)
 
             cnt += 1
@@ -24,10 +45,9 @@ def InlineColors()
         endwhile
 
         cnt = 1
-        var [vec, v_starts, v_ends] = matchstrpos(current, 'vec[34](\(\s*\d\+\.\{0,1\}\d*f\{0,1\}\s*[,)]\)\{3,4\}', 0, cnt)
+        const glsl_vec_color_regexpr = 'vec[34](\(\s*\d\+\.\?\d*f\?\s*[,)]\)\{3,4\}'
+        var [vec, v_starts, v_ends] = matchstrpos(current, glsl_vec_color_regexpr, 0, cnt)
         while v_starts != -1
-            # [vec, v_starts, v_ends] = matchstrpos(vec, 'vec[34](\(\s*\d\+\.\{0,1\}\d*f\{0,1\}\s*[,)]\)\{3,4\}', 0, cnt)
-
             var params_start = matchend(vec, '(')
             if params_start != -1
                 var params = split(vec[params_start : ], ',')
@@ -47,13 +67,34 @@ def InlineColors()
                 endif
 
                 if valid
+	            if line_has_been_reset == v:false
+                        prop_clear(row)
+                        line_has_been_reset = v:true
+	            endif
+
                     var hex_color = printf('#%02x%02x%02x', float2nr(rr * 255), float2nr(gg * 255), float2nr(bb * 255))
                     s:AddColorBullet(row, v_starts + 1, hex_color)
                 endif
             endif
 
             cnt += 1
-            [vec, v_starts, v_ends] = matchstrpos(current, 'vec[34](\(\s*\d\+\.\{0,1\}\d*f\{0,1\}\s*[,)]\)\{3,4\}', 0, cnt)
+            [vec, v_starts, v_ends] = matchstrpos(current, glsl_vec_color_regexpr, 0, cnt)
         endwhile
     endfor
 enddef
+
+def RescanLastEditedLines()
+    var edit_start = getpos("'[")[1]
+    var edit_end = getpos("']")[1]
+
+    s:PreviewColors(edit_start, edit_end)
+enddef
+
+def RescanCurrentLine()
+    var current_line = line('.')
+
+    s:PreviewColors(current_line, current_line, v:false)
+enddef
+
+au TextChanged,TextChangedP * call RescanLastEditedLines()
+au TextChangedI * call RescanCurrentLine()
