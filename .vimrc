@@ -71,16 +71,17 @@ if has("gui_running")
   endif
 endif
 
-function! SplitOnce()
+def! Split_once()
     simalt ~x
-    if exists("w:IsSplit") == 0
+    if !exists("s:IsSplit")
         vsplit
-        let w:IsSplit = 1
+        s:IsSplit = 1
     endif
-endfun
+    winc =
+enddef
 
 " Split window on open (splits twice in gvim)
-au GUIEnter * call SplitOnce()
+au GUIEnter * call Split_once()
 au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
 au BufNewFile,BufRead *.toml set filetype=rust
