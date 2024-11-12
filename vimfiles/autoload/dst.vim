@@ -31,6 +31,12 @@ function! dst#define_syntax_region(filetype,start,end,textSnipHl = 'SpecialComme
   \ contains=@'.group
 endfunction
 
+if has('nvim')
+    finish
+endif
+
+
+
 " ======================================================================================
 " Inline color previews for hex and vec3/vec4.
 "

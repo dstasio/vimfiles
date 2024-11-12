@@ -71,17 +71,28 @@ if has("gui_running")
   endif
 endif
 
-def! Split_once()
-    simalt ~x
-    if !exists("s:IsSplit")
-        vsplit
-        s:IsSplit = 1
-    endif
-    winc =
-enddef
+if !has('nvim')
+    def! Split_once()
+        simalt ~x
+        if !exists("s:IsSplit")
+            vsplit
+            s:IsSplit = 1
+        endif
+        winc =
+    enddef
+    
+    " Split window on open (splits twice in gvim)
+    au GUIEnter * call Split_once()
 
-" Split window on open (splits twice in gvim)
-au GUIEnter * call Split_once()
+    "
+    " Inline Color Previews
+    " @todo: These should not be active in all file types
+    au BufNewFile,BufRead *.glsl call dst#preview_colors()
+    au BufNewFile,BufRead *.vim call dst#preview_colors()
+    au TextChanged,TextChangedP * call dst#rescan_last_edited_lines()
+    au TextChangedI * call dst#rescan_current_line()
+endif
+
 au VimResized * winc =
 au BufNewFile,BufRead *.hlsl set syntax=hlsl
 au BufNewFile,BufRead *.toml set filetype=rust
@@ -317,8 +328,3 @@ nnoremap <C-Down> :silent! let &guifont = substitute(
 " End font resize commands
 " --------------------------------------------------------------------
 
-"
-" Inline Color Previews
-" @todo: These should not be active in all file types
-au TextChanged,TextChangedP * call dst#rescan_last_edited_lines()
-au TextChangedI * call dst#rescan_current_line()
