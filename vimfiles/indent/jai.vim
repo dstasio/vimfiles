@@ -61,7 +61,7 @@ function! GetJaiIndent(lnum)
     let ind = indent(prev)
 
     let prevline_contains_bracket = 0
-    if prevline =~ '[({]\s*$'
+    if prevline =~ '[({\[]\s*$'
         let prevline_contains_bracket = 1
 
         let ind += s:indent_value('default')
@@ -72,7 +72,7 @@ function! GetJaiIndent(lnum)
         let ind += s:indent_value('default')
     endif
 
-    if line =~ '^\s*[)}]'
+    if line =~ '^\s*[)}\]]'
         let ind -= s:indent_value('default')
 
         " Find corresponding opening line and check if it’s an if/case
@@ -98,7 +98,7 @@ function! GetJaiIndent(lnum)
         " if the previous line contains an 'if', then we indent this line
         let ind += s:indent_value('default')
     elseif prevprev > 0
-        if (indent(prev) > indent(prevprev)) && !prevline_contains_bracket && prevprevline !~ '[({]\s*$'
+        if (indent(prev) > indent(prevprev)) && !prevline_contains_bracket && prevprevline !~ '[({\[]\s*$'
             let ind = indent(prevprev)
         endif
     endif
