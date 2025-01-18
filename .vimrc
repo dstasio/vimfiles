@@ -43,6 +43,7 @@ noremap <C-H> 7zh
 noremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
 vnoremap p "_dP
+vnoremap <F5> :Align 
 nnoremap <silent> <C-T> :tabe<CR>
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
@@ -288,6 +289,7 @@ endfun
 
 command! -nargs=+ Foru call InsertFor(0, <f-args>)
 command! -nargs=+ For  call InsertFor(1, <f-args>)
+command! -nargs=1 Align call dst#align_lines(<f-args>)
 
 nnoremap <Leader>f  :For 
 nnoremap <Leader>uf :Foru 

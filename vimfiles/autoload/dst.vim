@@ -1,3 +1,56 @@
+def dst#align_lines(token: string)
+    # This function uses the following convention:
+    # - prefix: the portion of the line until just before the alignment token
+    # - suffix: the portion of the line that starts right after the alignment token
+    const trim_start = 1
+    const trim_end   = 2
+
+    const selection_start = getpos("'<")[1]
+    const selection_end = getpos("'>")[1]
+
+    var max_prefix_length = -1
+    var lines_data = []
+    const IDX_PREFIX_LENGTH = 0
+    const IDX_TOKEN_POS = 1
+    for line_number in range(selection_start, selection_end)
+        const in_line = getline(line_number)
+        lines_data += [[-1, -1]]
+        
+        const match_index = match(in_line, token)
+        if match_index >= 0
+            const line_until_token = trim(in_line[ : match_index - strlen(token)], "", trim_end)
+
+            lines_data[-1][IDX_TOKEN_POS] = match_index
+
+            const current_prefix_length = strlen(line_until_token)
+            lines_data[-1][IDX_PREFIX_LENGTH] = current_prefix_length
+
+            if current_prefix_length > max_prefix_length
+                max_prefix_length = current_prefix_length
+            endif
+        endif
+    endfor
+
+    for line_number in range(selection_start, selection_end)
+        const line_data = lines_data[line_number - selection_start]
+
+        if line_data[IDX_PREFIX_LENGTH] < 0
+            continue
+        endif
+
+        const in_line = getline(line_number)
+        const prefix = in_line[ : line_data[IDX_PREFIX_LENGTH]]
+        const suffix = trim(in_line[line_data[IDX_TOKEN_POS] + strlen(token) : ], "", trim_start)
+
+        const spaces_before_token = max_prefix_length - strlen(prefix) + 1
+        const out_line = prefix .. repeat(" ", spaces_before_token) .. token .. " " .. suffix
+        setline(line_number, out_line)
+    endfor
+enddef
+defcompile
+
+
+
 if exists("b:defined_common_syntax_functions")
     finish
 endif
@@ -127,7 +180,7 @@ enddef
 
 def dst#rescan_last_edited_lines()
     var edit_start = getpos("'[")[1]
-    var edit_end = getpos("']")[1]
+    var edit_end   = getpos("']")[1]
 
     dst#preview_colors(edit_start, edit_end)
 enddef
