@@ -14,6 +14,8 @@
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
 if has("gui_running")
+    let g:sonokai_style = 'light'
+    let g:sonokai_better_performance = 0
     colorscheme sonokai
 endif
 
@@ -43,7 +45,7 @@ noremap <C-H> 7zh
 noremap <C-L> 7zl
 nnoremap <A-b> :b#<CR>
 vnoremap p "_dP
-vnoremap <F5> :Align 
+vnoremap <F5> :<BS><BS><BS><BS><BS>Align 
 nnoremap <silent> <C-T> :tabe<CR>
 
 nnoremap <silent> <A-Space> :set hlsearch! <Bar>:echo<CR>
@@ -72,7 +74,7 @@ if has("gui_running")
   endif
 endif
 
-if !has('nvim')
+if !has('nvim') && has("gui_running")
     def! Split_once()
         simalt ~x
         if !exists("s:IsSplit")

@@ -55,6 +55,33 @@ function! sonokai#get_palette(style, colors_override) "{{{
           \ 'grey_dim':   ['#595f6f',   '240'],
           \ 'none':       ['NONE',      'NONE']
           \ }
+  elseif a:style ==# 'light'
+    let palette = {
+          \ 'black':      ['#000000',   '232'],
+          \ 'bg_dim':     ['#Ff7faf',   '232'],
+          \ 'bg0':        ['#dcdcdc',   '235'],
+          \ 'bg1':        ['#Ff7faf',   '236'],
+          \ 'bg2':        ['#Ff7faf',   '236'],
+          \ 'bg3':        ['#Ff7faf',   '237'],
+          \ 'bg4':        ['#Ff7faf',   '237'],
+          \ 'bg_red':     ['#Ff7faf',   '203'],
+          \ 'diff_red':   ['#Ff7faf',   '52'],
+          \ 'bg_green':   ['#Ff7faf',   '107'],
+          \ 'diff_green': ['#Ff7faf',   '22'],
+          \ 'bg_blue':    ['#Ff7faf',   '110'],
+          \ 'diff_blue':  ['#Ff7faf',   '17'],
+          \ 'diff_yellow':['#Ff7faf',   '54'],
+          \ 'fg':         ['#000000',   '250'],
+          \ 'red':        ['#000000',   '203'],
+          \ 'orange':     ['#000000',   '215'],
+          \ 'yellow':     ['#000000',   '179'],
+          \ 'green':      ['#000000',   '107'],
+          \ 'blue':       ['#000000',   '110'],
+          \ 'purple':     ['#000000',   '176'],
+          \ 'grey':       ['#000000',   '246'],
+          \ 'grey_dim':   ['#000000',   '240'],
+          \ 'none':       ['NONE',      'NONE']
+          \ }
   elseif a:style ==# 'shusia'
     let palette = {
           \ 'black':      ['#1a181a',   '232'],
