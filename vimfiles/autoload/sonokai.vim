@@ -72,14 +72,14 @@ function! sonokai#get_palette(style, colors_override) "{{{
           \ 'diff_blue':  ['#Ff7faf',   '17'],
           \ 'diff_yellow':['#Ff7faf',   '54'],
           \ 'fg':         ['#000000',   '250'],
-          \ 'red':        ['#000000',   '203'],
-          \ 'orange':     ['#000000',   '215'],
-          \ 'yellow':     ['#000000',   '179'],
-          \ 'green':      ['#000000',   '107'],
-          \ 'blue':       ['#000000',   '110'],
-          \ 'purple':     ['#000000',   '176'],
-          \ 'grey':       ['#000000',   '246'],
-          \ 'grey_dim':   ['#000000',   '240'],
+          \ 'red':        ['#C40233',   '203'],
+          \ 'orange':     ['#952919',   '215'],
+          \ 'yellow':     ['#ab8e05',   '179'],
+          \ 'green':      ['#0e966a',   '107'],
+          \ 'blue':       ['#1383af',   '110'],
+          \ 'purple':     ['#362b4f',   '176'],
+          \ 'grey':       ['#5d5c5c',   '246'],
+          \ 'grey_dim':   ['#9d9c9c',   '240'],
           \ 'none':       ['NONE',      'NONE']
           \ }
   elseif a:style ==# 'shusia'
