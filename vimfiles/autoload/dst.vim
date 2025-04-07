@@ -55,6 +55,10 @@ enddef
 
 " Adapted from u/wasser-frosch at https://www.reddit.com/r/vim/comments/wm08fl/simple_vim_9_virtual_text_example_for_hex_colors
 def dst#preview_colors(startline = -1, endline = -1, reset_previous_previews = v:true)
+    if ft=qf
+        return
+    endif
+
     var first_line = 1
     if startline != -1
         first_line = startline
