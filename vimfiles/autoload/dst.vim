@@ -19,6 +19,7 @@ function! dst#define_syntax_region(filetype,start,end,textSnipHl = 'SpecialComme
   execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
   try
     execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+
   catch
   endtry
   if exists('s:current_syntax')
@@ -55,7 +56,9 @@ enddef
 
 " Adapted from u/wasser-frosch at https://www.reddit.com/r/vim/comments/wm08fl/simple_vim_9_virtual_text_example_for_hex_colors
 def dst#preview_colors(startline = -1, endline = -1, reset_previous_previews = v:true)
-    if ft=qf
+    const enabled_types = ['glsl', 'hlsl', 'jai']
+    var filetype = &ft
+    if index(enabled_types, filetype) < 0
         return
     endif
 
@@ -74,17 +77,17 @@ def dst#preview_colors(startline = -1, endline = -1, reset_previous_previews = v
         var cnt = 1
 
         var line_has_been_reset = v:false
-	if reset_previous_previews
+        if reset_previous_previews
             prop_clear(row)
             line_has_been_reset = v:true
-	endif
+        endif
 
         var [hex, starts, ends] = matchstrpos(current, '#\x\{6\}', 0, cnt)
         while starts != -1
-	    if line_has_been_reset == v:false
+            if line_has_been_reset == v:false
                 prop_clear(row)
                 line_has_been_reset = v:true
-	    endif
+            endif
 
             s:add_inline_color_bullet(row, starts + 1, hex)
 
@@ -116,10 +119,10 @@ def dst#preview_colors(startline = -1, endline = -1, reset_previous_previews = v
                 endif
 
                 if valid
-	            if line_has_been_reset == v:false
+                    if line_has_been_reset == v:false
                         prop_clear(row)
                         line_has_been_reset = v:true
-	            endif
+                    endif
 
                     var hex_color = printf('#%02x%02x%02x', float2nr(rr * 255), float2nr(gg * 255), float2nr(bb * 255))
                     s:add_inline_color_bullet(row, v_starts + 1, hex_color)
