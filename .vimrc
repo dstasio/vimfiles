@@ -14,7 +14,7 @@
 " NOTE: https://github.com/itchyny/lightline.vim
 syntax on
 if has("gui_running")
-    let g:sonokai_style = 'light'
+    " let g:sonokai_style = 'light'
     let g:sonokai_better_performance = 0
     colorscheme sonokai
 endif

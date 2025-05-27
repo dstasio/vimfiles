@@ -223,6 +223,9 @@ syn keyword         slangStorageClass        linear centroid nointerpolation nop
 syn keyword         slangStorageClass        globallycoherent
 
 " Types
+" Inferred types
+syn keyword         slangType                let var
+
 " Buffer types
 syn keyword         slangType                ConstantBuffer Buffer ByteAddressBuffer ConsumeStructuredBuffer StructuredBuffer
 syn keyword         slangType                AppendStructuredBuffer RWBuffer RWByteAddressBuffer RWStructuredBuffer
