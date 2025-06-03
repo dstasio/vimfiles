@@ -1,4 +1,4 @@
-" Name:    one vim colorscheme
+" Name:    one vim colorscheme (https://github.com/rakr/vim-one)
 " Author:  Ramzi Akremi
 " License: MIT
 " Version: 1.1.1-pre
