@@ -34,6 +34,7 @@ set incsearch
 set enc=utf-8
 set sidescrolloff=3
 set sidescroll=1
+set belloff=all
 let mapleader=" "
 "expandtab?
 
