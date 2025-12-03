@@ -193,12 +193,32 @@ function! OpenScratchBuffer()
     endif
 endfun
 
+function! SetCurrentBufferAsScratch()
+    let s:Scratchname = bufname("scratch")
+    if (strlen(s:Scratchname)) > 0
+        w
+        exe ":buffer " . s:Scratchname
+    else
+        enew
+        " exe \":enew" 
+        file "scratch"
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        setlocal noswapfile
+    endif
+endfun
+
 function! s:SwitchWindow()
     let OldWindow = winnr()
     wincmd l
     if winnr() == OldWindow
         wincmd h
     endif
+endfun
+
+function! OpenReadOnly(Filename)
+    exe ":noswapfile edit " . a:Filename
+    set readonly
 endfun
 
 function! OpenBufferOrFile(Filename, OtherWindow)
@@ -290,9 +310,10 @@ function! InsertFor(Signed, IndexEnd, ...)
     normal j
 endfun 
 
-command! -nargs=+ Foru call InsertFor(0, <f-args>)
-command! -nargs=+ For  call InsertFor(1, <f-args>)
-command! -nargs=1 Align call dst#align_lines(<f-args>)
+command! -nargs=+                Foru  call InsertFor(0, <f-args>)
+command! -nargs=+                For   call InsertFor(1, <f-args>)
+command! -nargs=1                Align call dst#align_lines(<f-args>)
+command! -nargs=1 -complete=file Roe   call OpenReadOnly(<f-args>)
 
 nnoremap <Leader>f  :For 
 nnoremap <Leader>uf :Foru 
