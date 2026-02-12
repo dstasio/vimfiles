@@ -172,3 +172,4 @@ let b:current_syntax = "jai"
 call dst#define_syntax_region('glsl','#string GLSL','GLSL')
 call dst#define_syntax_region('hlsl','#string HLSL','HLSL')
 call dst#define_syntax_region('html','#string HTML','HTML')
+call dst#define_syntax_region( 'cpp','#string CPP' ,'CPP' )

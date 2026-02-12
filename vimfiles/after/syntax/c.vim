@@ -7,6 +7,9 @@
 " Last Change:     Oct 2, 2024
 " ==============================================================================
 
+syntax keyword dstCppType u8 u16 u32 u64 s8 s16 s32 s64
+hi def link dstCppType Type
+
 
 " Highlight additional keywords in the comments
 syn keyword cTodo contained BUG NOTE

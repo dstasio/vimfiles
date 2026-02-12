@@ -7,6 +7,9 @@
 " Last Change:     Oct 2, 2024
 " ==============================================================================
 
+syntax keyword dstCppType u8 u16 u32 u64 s8 s16 s32 s64
+hi def link dstCppType Type
+
 " C++ attributes {{{1
 if get(g:, 'cpp_attributes_highlight', 0)
     syntax region cppAttribute matchgroup=cppAttributeBrackets start='\[\[' end=']]' contains=cString
@@ -184,7 +187,6 @@ if !exists('cpp_no_boost')
     syntax keyword cppSTLfunction lexical_cast
 endif
 " }}}
-
 
 " Default highlighting
 hi def link cppSTLbool         Boolean
