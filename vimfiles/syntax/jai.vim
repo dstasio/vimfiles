@@ -75,10 +75,10 @@ syntax match jaiForVariableDeclaration "\v%(for%(\_s*\<)?%(\_s*<\h\w*%(\\\s*\w+)
 syntax match jaiTagNote "@\<\w\+\>" display
 
 syntax match jaiClass "\v<[A-Z]\w+>" display
-syntax match jaiConstant "\v<[A-Z0-9,_]+>" display
+syntax match jaiConstant "\v<\u[A-Z0-9,_]+>" display
 
-syntax match jaiInteger "\<\d\+\>" display
-syntax match jaiFloat "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\%([eE][+-]\=[0-9_]\+\)\=" display
+syntax match jaiInteger "\<-\?\d\+[^\.]\>" display
+syntax match jaiFloat "\<-\?\d[0-9_]*\%(\.\%([0-9][0-9_]*\)\?\%([eE][+-]\=[0-9_]\+\)\?\)\?" display
 syntax match jaiHex "\<0[x\|X][0-9A-Fa-f_]\+\>" display
 syntax match jaiHexFloat "\<0[h\|H][0-9A-Fa-f_]\+\>" display
 syntax match jaiBinary "\<0[b\|B][0-1_]\+\>" display
