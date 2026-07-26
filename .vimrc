@@ -109,6 +109,7 @@ au BufNewFile,BufRead *.jai  source ~/vimfiles/indent/jai.vim
 au BufNewFile,BufRead *.glsl set filetype=glsl
 au BufNewFile,BufRead *.vert set filetype=glsl
 au BufNewFile,BufRead *.frag set filetype=glsl
+au BufNewFile * set fileformat=unix
 
 nnoremap <silent> <A-w> :set wrap!<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -185,7 +186,7 @@ function! OpenScratchBuffer()
         exe ":buffer " . s:Scratchname
     else
         enew
-        " exe \":enew" 
+        " exe \":enew"
         file "scratch"
         setlocal buftype=nofile
         setlocal bufhidden=hide
@@ -200,7 +201,7 @@ function! SetCurrentBufferAsScratch()
         exe ":buffer " . s:Scratchname
     else
         enew
-        " exe \":enew" 
+        " exe \":enew"
         file "scratch"
         setlocal buftype=nofile
         setlocal bufhidden=hide
@@ -333,10 +334,19 @@ map <F8> :call CommentToggle()<CR>
 
 au BufNewFile,BufRead *.rs source $HOME/vimfiles/indent/rust.vim
 
-function! GetSyntaxSroup()
+function! GetSyntaxGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
+
+function! SearchJaiDeclarationUnderCursor()
+    let hovered_word = expand('<cword>')
+    let pattern = '\<' . hovered_word . '\s*:'
+    let @/ = '\<' . hovered_word . '\>'
+    call search(pattern)
+endfun
+
+nnoremap <C-8> :call SearchJaiDeclarationUnderCursor()<CR>
 
 
 " --------------------------------------------------------------------
