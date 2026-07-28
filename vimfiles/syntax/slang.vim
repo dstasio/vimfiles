@@ -253,9 +253,11 @@ syn keyword         slangType                min16uint1 min16uint2 min16uint3 mi
 syn keyword         slangType                float16_t1 float16_t2 float16_t3 float16_t4
 syn keyword         slangType                float32_t1 float32_t2 float32_t3 float32_t4
 syn keyword         slangType                float64_t1 float64_t2 float64_t3 float64_t4
+syn keyword         slangType                int8_t int8_t2 int8_t3 int8_t4
 syn keyword         slangType                int16_t1 int16_t2 int16_t3 int16_t4
 syn keyword         slangType                int32_t1 int32_t2 int32_t3 int32_t4
 syn keyword         slangType                int64_t1 int64_t2 int64_t3 int64_t4
+syn keyword         slangType                uint8_t uint8_t2 uint8_t3 uint8_t4
 syn keyword         slangType                uint16_t1 uint16_t2 uint16_t3 uint16_t4
 syn keyword         slangType                uint32_t1 uint32_t2 uint32_t3 uint32_t4
 syn keyword         slangType                uint64_t1 uint64_t2 uint64_t3 uint64_t4
