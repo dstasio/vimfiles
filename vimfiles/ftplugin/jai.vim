@@ -28,6 +28,12 @@ call sign_define(s:sign_scope_export, {'numhl': 'jaiScopeExportNr'})
 function! s:JaiRefreshScopeSigns() abort
     sign unplace * group=jai_scope
 
+    " If the file has too many lines, we skip the scope scanning because it's
+    "  too slow
+    if line('$') > 4096
+        return
+    endif
+
     let l:current_scope = s:sign_scope_export
     for l:lnum in range(1, line('$'))
         let l:text = getline(l:lnum)
@@ -46,7 +52,6 @@ function! s:JaiRefreshScopeSigns() abort
 endfunction
 
 
-setlocal signcolumn=no
 augroup JaiScopeSigns
     autocmd! *
     autocmd BufEnter,TextChanged,TextChangedI,BufWritePost *.jai call s:JaiRefreshScopeSigns()
