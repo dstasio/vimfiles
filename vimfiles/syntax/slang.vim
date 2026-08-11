@@ -24,6 +24,9 @@ else
   unlet b:current_syntax
 endif
 
+" Custom types
+syn keyword         slangType                NPx NPx2
+
 " Annotations
 syn match           slangAnnotation          /<.*;>/
 
@@ -224,7 +227,7 @@ syn keyword         slangStorageClass        globallycoherent
 
 " Types
 " Inferred types
-syn keyword         slangType                let var
+syn keyword         slangType                let var func
 
 " Buffer types
 syn keyword         slangType                ConstantBuffer Buffer ByteAddressBuffer ConsumeStructuredBuffer StructuredBuffer
