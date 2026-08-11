@@ -7,8 +7,11 @@
 " Last Change:     Oct 2, 2024
 " ==============================================================================
 
-syntax keyword dstCppType u8 u16 u32 u64 s8 s16 s32 s64
-hi def link dstCppType Type
+syntax keyword dstCppType    u8 u16 u32 u64 s8 s16 s32 s64 b32 r32 v2 v3
+syntax match   dstStructType "\v<[A-Z]+[A-Z_]*[a-z]+\w+>" display
+
+hi def link dstCppType    Type
+hi def link dstStructType Type
 
 " C++ attributes {{{1
 if get(g:, 'cpp_attributes_highlight', 0)
